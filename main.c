@@ -109,20 +109,6 @@ void    stack_print(t_dlst **stack_a, t_dlst **stack_b)
     a = *stack_a;
     b = *stack_b;
     printf("**** STACK ****\n");
-    while (!((!a || a->next == *stack_a) && (!b || b->next == *stack_b)))
-    {
-        if (a && a->next != *stack_a)
-        {
-            printf("%d", *(int*)(a->data));
-            a = a->next;
-        }
-        if (b && b->next != *stack_b)
-        {
-            printf("\t%d", *(int*)(b->data));
-            b = b->next;
-        }
-        printf("\n");
-    }
     if (a)
     {
         printf("%d", *(int*)(a->data));
@@ -132,6 +118,20 @@ void    stack_print(t_dlst **stack_a, t_dlst **stack_b)
     {
         printf("\t%d\n", *(int*)(b->data));
         b = b->next;
+    }
+    while (!((!a || a == *stack_a) && (!b || b == *stack_b)))
+    {
+        if (a && a != *stack_a)
+        {
+            printf("%d", *(int*)(a->data));
+            a = a->next;
+        }
+        if (b && b != *stack_b)
+        {
+            printf("\t%d", *(int*)(b->data));
+            b = b->next;
+        }
+        printf("\n");
     }
     printf("_\t_\n");
     printf("a\tb\n\n");
