@@ -116,9 +116,10 @@ void    stack_print(t_dlst **stack_a, t_dlst **stack_b)
     }
     if (b)
     {
-        printf("\t%d\n", *(int*)(b->data));
+        printf("\t%d", *(int*)(b->data));
         b = b->next;
     }
+    printf("\n");
     while (!((!a || a == *stack_a) && (!b || b == *stack_b)))
     {
         if (a && a != *stack_a)
@@ -163,7 +164,10 @@ int     push_stack(t_dlst **src, t_dlst **dest)
     if (!src || !dest || !*src)
         return (0);
     elem = *src;
-    (*src) = (*src)->next;
+    if (elem == elem->next)
+        *src = NULL;
+    else
+        (*src) = (*src)->next;
     elem->next->prev = elem->prev;
     elem->prev->next = elem->next;
     dest = dlst_push_top(dest, elem);
@@ -214,24 +218,71 @@ int main(int ac, char **av)
     
     
     stack_print(stack_a, stack_b);
-    printf("swap a\n");
+    printf("SWAP A\n");
     swap_stack(stack_a);
     stack_print(stack_a, stack_b);
-    printf("swap a\n");
+    printf("SWAP A\n");
     swap_stack(stack_a);
     stack_print(stack_a, stack_b);
    
-    printf("PUSH\n");
+    printf("SWAP B\n");
+    swap_stack(stack_b);
+    stack_print(stack_a, stack_b);
+    printf("SWAP B\n");
+    swap_stack(stack_b);
+    stack_print(stack_a, stack_b);
+
+    printf("PUSH B\n");
+    push_stack(stack_b, stack_a);
+    stack_print(stack_a, stack_b);
+
+    printf("PUSH B\n");
+    push_stack(stack_b, stack_a);
+    stack_print(stack_a, stack_b);
+
+    printf("PUSH A\n");
     push_stack(stack_a, stack_b);
     stack_print(stack_a, stack_b);
     
-    printf("PUSH\n");
+    printf("PUSH A\n");
     push_stack(stack_a, stack_b);
     stack_print(stack_a, stack_b);
 
-    printf("PUSH\n");
+    printf("PUSH A\n");
+    push_stack(stack_a, stack_b);
+    stack_print(stack_a, stack_b);
+
+    printf("PUSH A\n");
     push_stack(stack_a, stack_b);
     stack_print(stack_a, stack_b);
     
+    printf("PUSH A\n");
+    push_stack(stack_a, stack_b);
+    stack_print(stack_a, stack_b);
+
+    printf("PUSH A\n");
+    push_stack(stack_a, stack_b);
+    stack_print(stack_a, stack_b);
+
+    printf("PUSH B\n");
+    push_stack(stack_b, stack_a);
+    stack_print(stack_a, stack_b);
+    
+    printf("PUSH B\n");
+    push_stack(stack_b, stack_a);
+    stack_print(stack_a, stack_b);
+
+    printf("PUSH B\n");
+    push_stack(stack_b, stack_a);
+    stack_print(stack_a, stack_b);
+
+    printf("ROTATE A\n");
+    rotate(stack_a);
+    stack_print(stack_a, stack_b);
+
+    printf("R-ROTATE A\n");
+    reverse_rotate(stack_a);
+    stack_print(stack_a, stack_b);
+
     return (0);
 }
