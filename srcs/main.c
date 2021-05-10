@@ -219,6 +219,22 @@ int     exec_instruct(char *str, t_dlst **stack_a, t_dlst **stack_b)
     return (1);
 }
 
+int     is_sorted(t_dlst **stack_a, t_dlst **stack_b)
+{
+    t_dlst  *elem;
+
+    if (*stack_b || !*stack_a)
+        return (0);
+    elem = *stack_a;
+    while (elem->next != *stack_a)
+    {
+        if (*(int*)elem->data > *(int*)elem->next->data)
+            return (0);
+        elem = elem->next;
+    }
+    return (1);
+}
+
 int main(int ac, char **av)
 {
     t_dlst **stack_a = create_stack(ac, av);
@@ -230,14 +246,17 @@ int main(int ac, char **av)
     *stack_b = NULL;
     if (!stack_a || !*stack_a)
         return (1);
-    while (i)
+    stack_print(stack_a, stack_b);
+    while (i && !is_sorted(stack_a, stack_b))
     {
         get_next_line(1, &line);
         i = exec_instruct(line, stack_a, stack_b);
-        if (!i)
-            printf("Error\n");
         stack_print(stack_a, stack_b);
     }
-
+    if (!i)
+        printf("Error\n");
+    else
+        printf("Sorted !\n");
+    
     return (0);
 }
