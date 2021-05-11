@@ -61,3 +61,45 @@ t_dlst	**dlst_push_top(t_dlst **begin, t_dlst *elem)
 	*begin = elem;
 	return (begin);
 }
+
+int     dlst_size(t_dlst **begin)
+{
+    t_dlst  *elem;
+    int     i;
+
+    if (!begin || !*begin)
+        return (0);
+    i = 0;
+    elem = *begin;
+    while (elem->next != *begin)
+    {
+        elem = elem->next;
+        i++;
+    }
+    return (i + 1);
+}
+
+void    dlst_print(t_dlst **begin)
+{
+    t_dlst *elem;
+    int     i;
+
+    i = -1;
+    elem = *begin;
+    while (elem && elem->next != *begin)
+    {
+        printf("%d - %d->%p - %p\n", ++i, *(int*)elem->data, elem->data, elem);
+        elem = elem->next;
+    }
+    if (elem)
+        printf("%d - %d->%p - %p\n", ++i, *(int*)elem->data, elem->data, elem);
+}
+
+int     *dlst_to_tab(t_dlst **begin, int size)
+{
+    (void)begin;
+    (void)size;
+    return (NULL);
+
+
+}

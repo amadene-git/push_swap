@@ -32,19 +32,32 @@ typedef struct  s_dlst
     void            *data;
 }               t_dlst;
 
-void    ft_swap(int *a, int *b);
-void    ft_putstr(char *str);
-char    *ft_strdup(char const *str);
-size_t  ft_strlen(char const *str);
-int     ft_strcmp(const char *s1, const char *s2);
-int		get_next_line(int fd, char **line);
-t_dlst  *dlst_create_elem(void *data);
-t_dlst  **dlst_push_bottom(t_dlst **begin, t_dlst *elem);
-t_dlst  **dlst_push_top(t_dlst **begin, t_dlst *elem);
-int     swap_stack(t_dlst **stack);
-int     push_stack(t_dlst **src, t_dlst **dest);
-int     rotate(t_dlst **stack);
-int     reverse_rotate(t_dlst **stack);
+//utils
+void        ft_swap(int *a, int *b);
+void        ft_putstr(char *str);
+char        *ft_strdup(char const *str);
+size_t      ft_strlen(char const *str);
+int         ft_strcmp(const char *s1, const char *s2);
+long int	ft_atoli(const char *str);
+int         get_next_line(int fd, char **line);
+
+
+//dlst utils
+t_dlst      *dlst_create_elem(void *data);
+t_dlst      **dlst_push_bottom(t_dlst **begin, t_dlst *elem);
+t_dlst      **dlst_push_top(t_dlst **begin, t_dlst *elem);
+int         dlst_size(t_dlst **begin);
+void        dlst_print(t_dlst **begin);
+
+
+//push swap
+int         swap_stack(t_dlst **stack);
+int         push_stack(t_dlst **src, t_dlst **dest);
+int         rotate(t_dlst **stack);
+int         reverse_rotate(t_dlst **stack);
+
+
+//main
 
 
 

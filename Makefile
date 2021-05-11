@@ -1,18 +1,30 @@
 NAME		=	checker
 
-SRCS		=	srcs/main.c\
-				srcs/ft_swap.c\
+TEST_N		=	test
+
+##############################################
+
+SRCS		=	srcs/ft_swap.c\
 				srcs/ft_strdup.c\
 				srcs/ft_strlen.c\
 				srcs/ft_putstr.c\
 				srcs/ft_strcmp.c\
+				srcs/ft_atoli.c\
 				srcs/get_next_line.c\
 				srcs/dlst_utils.c\
 				srcs/push_swap.c\
 
+MAIN_C		=	srcs/main.c
+TEST_C		=	srcs/test.c
 
+#############################################
 
 OBJS		=	${SRCS:.c=.o}
+
+MAIN_O		=	${MAIN_C:.c=.o}
+TEST_O		=	${TEST_C:.c=.o}
+
+#############################################
 
 HEADER		=	-I includes
 
@@ -22,22 +34,30 @@ CC			=	clang
 
 RM			=	rm -rf
 
-
+#############################################
 
 .c.o	:
 				${CC} ${CFLAGS} ${HEADER} -c $< -o ${<:.c=.o}
 
-all		:	${NAME}
+#############################################
 
-${NAME}	:	${OBJS} 
-				${CC} -o ${NAME} ${OBJS} 
+all		:	${NAME}
+${NAME}	:	${MAIN_O} ${OBJS} 
+				${CC} -o ${NAME} $(MAIN_O) ${OBJS} 
+
+tester	:	${TEST_N}
+${TEST_N} :	${TEST_O} ${OBJS}
+				${CC} -o ${TEST_N} $(TEST_O) ${OBJS}
+
+##############################################
+
 
 clean	:
 				${RM} ${OBJS}
 
 fclean	:	clean
-				${RM} ${NAME}
+				${RM} ${NAME} ${TEST_N}
 
 re		:	fclean all
 
-.PHONY	:	all clean fclean sclean re
+.PHONY	:	all clean fclean sclean re test

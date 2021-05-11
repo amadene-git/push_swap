@@ -26,24 +26,6 @@ void    quick_sort(int *tab, int begin, int end)
     }
 }
 
-void    dlst_print(t_dlst **begin)
-{
-    t_dlst *elem;
-    int     i;
-
-    i = -1;
-    elem = *begin;
-    while (elem && elem->next != *begin)
-    {
-        printf("%d - %s->%p - %p\n", ++i, (char*)elem->data, elem->data, elem);
-        elem = elem->next;
-    }
-    if (elem)
-        printf("%d - %s->%p - %p\n", ++i, (char*)elem->data, elem->data, elem);
-}
-
-
-
 void    stack_print(t_dlst **stack_a, t_dlst **stack_b)
 {
     t_dlst  *a;
@@ -100,29 +82,7 @@ t_dlst  **dlst_create_lst(int *tab, int size)
     return (begin);
 }
 
-long int	ft_atoli(const char *str)
-{
-	int	neg = 1;
-	long long int nb = 0;
 
-	while (*str == ' ')
-		str++;
-	if (*str == '-')
-	{
-		str++;
-		neg = -1;
-	}
-	while (*str >= '0' && *str <= '9')
-	{
-		nb += (*str - '0') * neg;
-		nb *= 10;
-		str++;
-	}
-	if (*str && *str != ' ')
-		return (0);
-	nb /= 10;
-	return (nb);
-}
 
 int			check_arg(const char *str)
 {

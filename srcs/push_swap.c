@@ -14,13 +14,9 @@
 
 int     swap_stack(t_dlst **stack)
 {
-	void	*data;
-
-	if (!stack || !*stack || (*stack)->next == *stack)
+	if (!stack || !*stack)
 		return (0);
-	data = (*stack)->data;
-	(*stack)->data = (*stack)->next->data;
-	(*stack)->next->data = data;
+	ft_swap((int*)(*stack)->data, (int*)(*stack)->next->data);
 	return (1);
 }
 
