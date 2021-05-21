@@ -1,4 +1,7 @@
-NAME		=	checker
+NAME		=	push_swap
+
+CHECKER_N	=	checker
+
 
 TEST_N		=	tester
 
@@ -15,6 +18,7 @@ SRCS		=	srcs/ft_swap.c\
 				srcs/get_next_line.c\
 
 MAIN_C		=	srcs/main.c
+CHECKER_C	=	srcs/checker.c
 TEST_C		=	srcs/test.c
 
 #############################################
@@ -22,6 +26,7 @@ TEST_C		=	srcs/test.c
 OBJS		=	${SRCS:.c=.o}
 
 MAIN_O		=	${MAIN_C:.c=.o}
+CHECKER_O	=	${CHECKER_C:.c=.o}
 TEST_O		=	${TEST_C:.c=.o}
 
 #############################################
@@ -45,9 +50,13 @@ all		:	${NAME}
 ${NAME}	:	${MAIN_O} ${OBJS} 
 				${CC} -g -o ${NAME} $(MAIN_O) ${OBJS} 
 
+check	:	${CHECKER_N}
+${CHECKER_N} :	${CHECKER_O} ${OBJS}
+				${CC} -g -o ${CHECKER_N} $(CHECKER_O) ${OBJS}
+
 test	:	${TEST_N}
 ${TEST_N} :	${TEST_O} ${OBJS}
-				${CC} -o ${TEST_N} $(TEST_O) ${OBJS}
+				${CC} -g -o ${TEST_N} $(TEST_O) ${OBJS}
 
 ##############################################
 
@@ -56,7 +65,7 @@ clean	:
 				${RM} ${OBJS} ${MAIN_O} ${TEST_O}
 
 fclean	:	clean
-				${RM} ${NAME} ${TEST_N}
+				${RM} ${NAME} ${CHECKER_N} ${TEST_N}
 
 re		:	fclean all
 
