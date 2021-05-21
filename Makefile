@@ -1,6 +1,6 @@
 NAME		=	checker
 
-TEST_N		=	test
+TEST_N		=	tester
 
 ##############################################
 
@@ -45,7 +45,7 @@ all		:	${NAME}
 ${NAME}	:	${MAIN_O} ${OBJS} 
 				${CC} -o ${NAME} $(MAIN_O) ${OBJS} 
 
-tester	:	${TEST_N}
+test	:	${TEST_N}
 ${TEST_N} :	${TEST_O} ${OBJS}
 				${CC} -o ${TEST_N} $(TEST_O) ${OBJS}
 
@@ -53,11 +53,11 @@ ${TEST_N} :	${TEST_O} ${OBJS}
 
 
 clean	:
-				${RM} ${OBJS}
+				${RM} ${OBJS} ${MAIN_O} ${TEST_O}
 
 fclean	:	clean
 				${RM} ${NAME} ${TEST_N}
 
 re		:	fclean all
 
-.PHONY	:	all clean fclean sclean re test
+.PHONY	:	all clean fclean sclean re
