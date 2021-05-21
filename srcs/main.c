@@ -26,14 +26,14 @@ void    quick_sort(int *tab, int begin, int end)
     }
 }
 
-void    stack_print(t_dlst **stack_a, t_dlst **stack_b)
+void    stack_print(t_dlst **stack_a, t_dlst **stack_b, char *line)
 {
     t_dlst  *a;
     t_dlst  *b;
 
     a = *stack_a;
     b = *stack_b;
-    printf("**** STACK ****\n");
+    printf("**** STACK **** -> %s\n", line);
     if (a)
     {
         printf("%d", *(int*)(a->data));
@@ -147,6 +147,7 @@ t_dlst		**create_stack(const int ac, const char **av)
     {
         free(begin);
         begin = NULL;
+        exit(1);
     }
     return (begin);
 }
@@ -184,7 +185,7 @@ int     exec_instruct(const char *str, t_dlst **stack_a, t_dlst **stack_b)
         reverse_rotate(stack_a);
         reverse_rotate(stack_b);
     }
-    else
+    else if (*str)
         return (0);
     return (1);
 }
@@ -222,13 +223,21 @@ int     verbose_checker(t_dlst **stack_a, t_dlst **stack_b, const int ac, const 
 
     if (!init_stack(&stack_a, &stack_b, ac - 2, av + 2))
         return (0);
-    stack_print(stack_a, stack_b);
+    stack_print(stack_a, stack_b, NULL);
     nb = 0;
     while (!is_sorted(stack_a, stack_b))
     {
-        get_next_line(STDIN_FILENO, &line);
-        if (!exec_instruct(line, stack_a, stack_b))
+        if (!get_next_line(STDIN_FILENO, &line))
         {
+            if (is_sorted(stack_a, stack_b))
+            {
+                if (stack_a)
+                    dlst_free(stack_a, *stack_a);
+                if (stack_b)
+                    dlst_free(stack_b, *stack_b);
+                free(line);
+                return (1);
+            }
             if (stack_a)
                 dlst_free(stack_a, *stack_a);
             if (stack_b)
@@ -236,8 +245,17 @@ int     verbose_checker(t_dlst **stack_a, t_dlst **stack_b, const int ac, const 
             free(line);
             return (0);
         }
+        if (!exec_instruct(line, stack_a, stack_b))
+        {
+            if (stack_a)
+                dlst_free(stack_a, *stack_a);
+            if (stack_b)
+                dlst_free(stack_b, *stack_b);
+            free(line);
+            return (-1);
+        }
+        stack_print(stack_a, stack_b, line);
         free(line);
-        stack_print(stack_a, stack_b);
         nb++;
     }
     if (stack_a)
@@ -251,15 +269,25 @@ int     verbose_checker(t_dlst **stack_a, t_dlst **stack_b, const int ac, const 
 int     checker(t_dlst **stack_a, t_dlst **stack_b, const int ac, const char **av)
 {
     char    *line;
+    int     i;
 
     line = NULL;
     if (!init_stack(&stack_a, &stack_b, ac - 1, av + 1))
-        return (0);
+        return (-1);
+    i = 1;
     while (!is_sorted(stack_a, stack_b))
     {
-        get_next_line(STDIN_FILENO, &line);
-        if (!exec_instruct(line, stack_a, stack_b))
+        if (!get_next_line(STDIN_FILENO, &line))
         {
+            if (is_sorted(stack_a, stack_b))
+            {
+                if (stack_a)
+                    dlst_free(stack_a, *stack_a);
+                if (stack_b)
+                    dlst_free(stack_b, *stack_b);
+                free(line);
+                return (1);
+            }
             if (stack_a)
                 dlst_free(stack_a, *stack_a);
             if (stack_b)
@@ -267,36 +295,41 @@ int     checker(t_dlst **stack_a, t_dlst **stack_b, const int ac, const char **a
             free(line);
             return (0);
         }
+        if (!exec_instruct(line, stack_a, stack_b))
+        {
+            if (stack_a)
+                dlst_free(stack_a, *stack_a);
+            if (stack_b)
+                dlst_free(stack_b, *stack_b);
+            free(line);
+            return (-1);
+        }
         free(line);
     }
     if (stack_a)
         dlst_free(stack_a, *stack_a);
     if (stack_b)
         dlst_free(stack_b, *stack_b);
-
     return (1);
 }
 
 int main(const int ac, const char **av)
 {
-    t_dlst **stack_a;
-    t_dlst **stack_b;
+    t_dlst  **stack_a;
+    t_dlst  **stack_b;
+    int     ret;
 
     stack_a = NULL;
     stack_b = NULL;
     if (!strcmp(av[1], "-v"))
-    {
-        if (verbose_checker(stack_a, stack_b, ac, av))
-            ft_putstr("Ok !\n");
-        else
-            ft_putstr("Error !\n");
-    }
+        ret = verbose_checker(stack_a, stack_b, ac, av);
     else
-    {
-        if (checker(stack_a, stack_b, ac, av))
-            ft_putstr("Ok !\n");
-        else
-            ft_putstr("Error !\n");
-    }
+        ret = checker(stack_a, stack_b, ac, av);
+    if (ret == 1)
+        ft_putstr("OK\n");
+    else if (ret == 0)
+        ft_putstr("KO\n");
+    else if (ret == -1)
+        ft_putstr("Error\n");
     return (0);
 }
