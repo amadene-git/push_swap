@@ -112,7 +112,12 @@ int		get_next_line(int fd, char **line)
 			return (-1);
 		if (!(save[fd] = ft_strdup(ft_chr(save[fd], '\n') + 1)))
 			return (-1);
-		free(tmp);
+                if (fd == 0)
+                {
+                        free(save[fd]);
+                        save[fd] = NULL;
+                }
+                free(tmp);
 		tmp = NULL;
 		return (1);
 	}

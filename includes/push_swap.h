@@ -6,7 +6,7 @@
 /*   By: admadene <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 09:10:06 by admadene          #+#    #+#             */
-/*   Updated: 2021/04/23 09:11:26 by admadene         ###   ########.fr       */
+/*   Updated: 2021/05/21 17:44:08 by admadene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ t_dlst      **dlst_push_bottom(t_dlst **begin, t_dlst *elem);
 t_dlst      **dlst_push_top(t_dlst **begin, t_dlst *elem);
 int         dlst_size(t_dlst **begin);
 void        dlst_print(t_dlst **begin);
+void        dlst_free(t_dlst **begin, t_dlst *elem);
+
 
 
 //push swap

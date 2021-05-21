@@ -82,8 +82,6 @@ t_dlst  **dlst_create_lst(int *tab, int size)
     return (begin);
 }
 
-
-
 int			check_arg(const char *str)
 {
 	int	i;
@@ -94,54 +92,66 @@ int			check_arg(const char *str)
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
 		i++;
 	str += i;
-	if (!i || i > 9 || *str)
+	if (!i || i > 10 || *str)
 		return (0);
 	return (1);
 }
 
-t_dlst		**create_stack(int ac, char **av)
+int     check_lst(t_dlst **begin, int *nb)
+{
+    t_dlst  *elem;
+
+    if (!*begin)
+        return (1);
+    elem = *begin;
+    while (elem->next != *begin)
+    {
+        if (*(int*)elem->data == *nb)
+            return (0);
+        elem = elem->next;
+    }
+    if (*(int*)elem->data == *nb)
+        return (0);
+    return (1);
+}
+
+t_dlst		**create_stack(const int ac, const char **av)
 {
 	t_dlst		**begin;
 	long int	tmp;
 	int			*nb;
 	int			i;
 
-	char	*tab = (char*)calloc(1, 4294967300);
-
 	begin = (t_dlst**)malloc(sizeof(t_dlst*));
-	*begin = NULL;
-	
-	i = 1;
+	*begin = NULL;	
+	i = 0;
 	while (i < ac)
 	{
 		tmp = ft_atoli(av[i]);
         if (tmp < INT_MIN || tmp > INT_MAX || !check_arg(av[i]))
         {
-            ft_putstr("Error\n");
+            dlst_free(begin, *begin);
             return (NULL);
         }
-		tmp += 2147483648;
-		if (tab[tmp])
-		{
-			ft_putstr("Error\n");
-            return (NULL);
-		}
-		else
-		{
-			tab[tmp] = 1;
-			tmp -= 2147483648;
-		}
-		nb = (int*)malloc(sizeof(int));
+        nb = (int*)malloc(sizeof(int));
 		*nb = (int)tmp;
-		if (!dlst_push_bottom(begin, dlst_create_elem(nb)))
+		if (!check_lst(begin, nb) || !dlst_push_bottom(begin, dlst_create_elem(nb)))
+        {
+            dlst_free(begin, *begin);
+            free(nb);
 			return (NULL);
-		i++;	
+        }
+        i++;	
 	}
-    free(tab);
-	return (begin);
+    if (!*begin)
+    {
+        free(begin);
+        begin = NULL;
+    }
+    return (begin);
 }
 
-int     exec_instruct(char *str, t_dlst **stack_a, t_dlst **stack_b)
+int     exec_instruct(const char *str, t_dlst **stack_a, t_dlst **stack_b)
 {
     if (!ft_strcmp(str, "sa"))
         swap_stack(stack_a);
@@ -195,28 +205,98 @@ int     is_sorted(t_dlst **stack_a, t_dlst **stack_b)
     return (1);
 }
 
-int main(int ac, char **av)
+int init_stack(t_dlst ***stack_a, t_dlst ***stack_b, const int ac, const char **av)
 {
-    t_dlst **stack_a = create_stack(ac, av);
-    t_dlst **stack_b = (t_dlst**)malloc(sizeof(t_dlst*));
-    char *line;
-    int i;
+    *stack_a = create_stack(ac, av);
+    if (!*stack_a || !**stack_a)
+        return (0);
+    *stack_b = (t_dlst**)malloc(sizeof(t_dlst*));
+    **stack_b = NULL;
+    return (1);
+}
 
-    i = 1;
-    *stack_b = NULL;
-    if (!stack_a || !*stack_a)
-        return (1);
+int     verbose_checker(t_dlst **stack_a, t_dlst **stack_b, const int ac, const char **av)
+{
+    int     nb;
+    char    *line;
+
+    if (!init_stack(&stack_a, &stack_b, ac - 2, av + 2))
+        return (0);
     stack_print(stack_a, stack_b);
-    while (i && !is_sorted(stack_a, stack_b))
+    nb = 0;
+    while (!is_sorted(stack_a, stack_b))
     {
-        get_next_line(1, &line);
-        i = exec_instruct(line, stack_a, stack_b);
+        get_next_line(STDIN_FILENO, &line);
+        if (!exec_instruct(line, stack_a, stack_b))
+        {
+            if (stack_a)
+                dlst_free(stack_a, *stack_a);
+            if (stack_b)
+                dlst_free(stack_b, *stack_b);
+            free(line);
+            return (0);
+        }
+        free(line);
         stack_print(stack_a, stack_b);
+        nb++;
     }
-    if (!i)
-        printf("Error\n");
+    if (stack_a)
+        dlst_free(stack_a, *stack_a);
+    if (stack_b)
+        dlst_free(stack_b, *stack_b);
+    printf("Sorted with %d instructions !\n", nb);
+    return (1);
+}
+
+int     checker(t_dlst **stack_a, t_dlst **stack_b, const int ac, const char **av)
+{
+    char    *line;
+
+    line = NULL;
+    if (!init_stack(&stack_a, &stack_b, ac - 1, av + 1))
+        return (0);
+    while (!is_sorted(stack_a, stack_b))
+    {
+        get_next_line(STDIN_FILENO, &line);
+        if (!exec_instruct(line, stack_a, stack_b))
+        {
+            if (stack_a)
+                dlst_free(stack_a, *stack_a);
+            if (stack_b)
+                dlst_free(stack_b, *stack_b);
+            free(line);
+            return (0);
+        }
+        free(line);
+    }
+    if (stack_a)
+        dlst_free(stack_a, *stack_a);
+    if (stack_b)
+        dlst_free(stack_b, *stack_b);
+
+    return (1);
+}
+
+int main(const int ac, const char **av)
+{
+    t_dlst **stack_a;
+    t_dlst **stack_b;
+
+    stack_a = NULL;
+    stack_b = NULL;
+    if (!strcmp(av[1], "-v"))
+    {
+        if (verbose_checker(stack_a, stack_b, ac, av))
+            ft_putstr("Ok !\n");
+        else
+            ft_putstr("Error !\n");
+    }
     else
-        printf("Sorted !\n");
-    
+    {
+        if (checker(stack_a, stack_b, ac, av))
+            ft_putstr("Ok !\n");
+        else
+            ft_putstr("Error !\n");
+    }
     return (0);
 }

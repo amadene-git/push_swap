@@ -95,6 +95,24 @@ void    dlst_print(t_dlst **begin)
         printf("%d - %d->%p - %p\n", ++i, *(int*)elem->data, elem->data, elem);
 }
 
+void        dlst_free(t_dlst **begin, t_dlst *elem)
+{
+    if (!begin)
+        return;
+    if (!elem)
+    {
+        free(begin);
+        return;
+    }
+    if (elem->next != *begin)
+        dlst_free(begin, elem->next);
+    else
+        free(begin);
+    if (elem->data)
+        free(elem->data);
+    free(elem);
+}
+
 int     *dlst_to_tab(t_dlst **begin, int size)
 {
     (void)begin;

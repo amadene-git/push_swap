@@ -10,9 +10,9 @@ SRCS		=	srcs/ft_swap.c\
 				srcs/ft_putstr.c\
 				srcs/ft_strcmp.c\
 				srcs/ft_atoli.c\
-				srcs/get_next_line.c\
 				srcs/dlst_utils.c\
 				srcs/push_swap.c\
+				srcs/get_next_line.c\
 
 MAIN_C		=	srcs/main.c
 TEST_C		=	srcs/test.c
@@ -37,13 +37,13 @@ RM			=	rm -rf
 #############################################
 
 .c.o	:
-				${CC} ${CFLAGS} ${HEADER} -c $< -o ${<:.c=.o}
+				${CC} -g ${CFLAGS} ${HEADER} -c $< -o ${<:.c=.o}
 
 #############################################
 
 all		:	${NAME}
 ${NAME}	:	${MAIN_O} ${OBJS} 
-				${CC} -o ${NAME} $(MAIN_O) ${OBJS} 
+				${CC} -g -o ${NAME} $(MAIN_O) ${OBJS} 
 
 test	:	${TEST_N}
 ${TEST_N} :	${TEST_O} ${OBJS}
