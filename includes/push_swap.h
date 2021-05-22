@@ -30,6 +30,7 @@ typedef struct  s_dlst
     struct s_dlst   *prev;
     struct s_dlst   *next;
     void            *data;
+    int             nb;
 }               t_dlst;
 
 //utils
@@ -59,7 +60,19 @@ int         rotate(t_dlst **stack);
 int         reverse_rotate(t_dlst **stack);
 
 
-//main
+//checker
+void        quick_sort(int *tab, int begin, int end);
+void        stack_print(t_dlst **stack_a, t_dlst **stack_b, char *line);
+t_dlst      **dlst_create_lst(int *tab, int size);
+int         check_arg(const char *str);
+int         check_lst(t_dlst **begin, int *nb);
+t_dlst      **create_stack(const int ac, const char **av);
+int         exec_instruct(const char *str, t_dlst **stack_a, t_dlst **stack_b);
+int         is_sorted(t_dlst **stack_a, t_dlst **stack_b);
+int         init_stack(t_dlst ***stack_a, t_dlst ***stack_b, const int ac, const char **av);
+int         verbose_checker(t_dlst **stack_a, t_dlst **stack_b, const int ac, const char **av);
+int         checker(t_dlst **stack_a, t_dlst **stack_b, const int ac, const char **av);
+
 
 
 

@@ -1,4 +1,4 @@
-#include "../includes/push_swap.h"
+#include "push_swap.h"
 #include <fcntl.h>
 
 int     *av_to_tabint(const char **av, int lvl)
@@ -20,27 +20,19 @@ int     *av_to_tabint(const char **av, int lvl)
 int main(int ac, char **av)
 {
     char    *line;
+    int i = 1;
     line = NULL;
     (void)ac;
-    int fd = open(av[1], O_RDONLY);
-    if (fd == -1)
-        return (-1);
-    while (get_next_line(fd, &line) != 0)
+    (void)av;
+    // int fd = open(av[1], O_RDONLY);
+    // if (fd == -1)
+    //     return (-1);
+    while (i)
     {
-        printf("line = %s %p\n", line, line);
+        i = get_next_line(0, &line);
+        printf("%d - line = %s %p\n",i, line, line);
         free(line);
     }
-    free(line);
-    get_next_line(fd, &line);
-    free(line);
-    get_next_line(fd, &line);
-    free(line);
-    get_next_line(fd, &line);
-    free(line);
-    get_next_line(fd, &line);
-    free(line);
-    get_next_line(0, &line);
-    free(line);
-    close(fd);
+//    close(fd);
     return (0);
 }

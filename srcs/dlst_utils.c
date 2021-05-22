@@ -20,6 +20,7 @@ t_dlst  *dlst_create_elem(void *data)
     if (!elem)
         return (NULL);
     elem->data = data;
+    elem->nb = *(int*)data;
     elem->prev = NULL;
     elem->next = NULL;
     return (elem);

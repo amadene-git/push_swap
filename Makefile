@@ -16,6 +16,7 @@ SRCS		=	srcs/ft_swap.c\
 				srcs/dlst_utils.c\
 				srcs/push_swap.c\
 				srcs/get_next_line.c\
+				srcs/checker_utils.c\
 
 MAIN_C		=	srcs/main.c
 CHECKER_C	=	srcs/checker.c
@@ -62,7 +63,7 @@ ${TEST_N} :	${TEST_O} ${OBJS}
 
 
 clean	:
-				${RM} ${OBJS} ${MAIN_O} ${TEST_O}
+				${RM} ${OBJS} ${MAIN_O} ${CHECKER_O} ${TEST_O}
 
 fclean	:	clean
 				${RM} ${NAME} ${CHECKER_N} ${TEST_N}
