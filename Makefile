@@ -2,7 +2,6 @@ NAME		=	push_swap
 
 CHECKER_N	=	checker
 
-
 TEST_N		=	tester
 
 ##############################################
@@ -17,6 +16,7 @@ SRCS		=	srcs/ft_swap.c\
 				srcs/push_swap.c\
 				srcs/get_next_line.c\
 				srcs/checker_utils.c\
+				srcs/push_swap_utils.c\
 
 MAIN_C		=	srcs/main.c
 CHECKER_C	=	srcs/checker.c
@@ -43,24 +43,23 @@ RM			=	rm -rf
 #############################################
 
 .c.o	:
-				${CC} -g ${CFLAGS} ${HEADER} -c $< -o ${<:.c=.o}
+				${CC}  ${CFLAGS} ${HEADER} -c $< -o ${<:.c=.o}
 
 #############################################
 
 all		:	${NAME}
 ${NAME}	:	${MAIN_O} ${OBJS} 
-				${CC} -g -o ${NAME} $(MAIN_O) ${OBJS} 
+				${CC} -o ${NAME} $(MAIN_O) ${OBJS} 
 
 check	:	${CHECKER_N}
 ${CHECKER_N} :	${CHECKER_O} ${OBJS}
-				${CC} -g -o ${CHECKER_N} $(CHECKER_O) ${OBJS}
+				${CC} -o ${CHECKER_N} $(CHECKER_O) ${OBJS}
 
 test	:	${TEST_N}
 ${TEST_N} :	${TEST_O} ${OBJS}
-				${CC} -g -o ${TEST_N} $(TEST_O) ${OBJS}
+				${CC} -o ${TEST_N} $(TEST_O) ${OBJS}
 
 ##############################################
-
 
 clean	:
 				${RM} ${OBJS} ${MAIN_O} ${CHECKER_O} ${TEST_O}

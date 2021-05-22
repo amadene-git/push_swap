@@ -21,6 +21,7 @@ t_dlst  *dlst_create_elem(void *data)
         return (NULL);
     elem->data = data;
     elem->nb = *(int*)data;
+    elem->chr = 0;
     elem->prev = NULL;
     elem->next = NULL;
     return (elem);
@@ -68,7 +69,9 @@ int     dlst_size(t_dlst **begin)
     t_dlst  *elem;
     int     i;
 
-    if (!begin || !*begin)
+    if (!begin)
+        return (-1);
+    if (!*begin)
         return (0);
     i = 0;
     elem = *begin;
@@ -114,11 +117,86 @@ void        dlst_free(t_dlst **begin, t_dlst *elem)
     free(elem);
 }
 
-int     *dlst_to_tab(t_dlst **begin, int size)
+t_dlst  *dlst_chr(t_dlst **begin, int nb)
 {
-    (void)begin;
-    (void)size;
+    t_dlst  *elem;
+    int     chr;
+
+    elem = *begin;
+    chr = 0;
+    while (elem->next != *begin)
+    {
+        if (elem->nb == nb)
+        {
+            if (chr > dlst_size(begin) / 2)
+                elem->chr = chr - dlst_size(begin);
+            else
+                elem->chr = chr;
+            return (elem);
+        }
+        chr++;
+        elem = elem->next;
+    }
+    if (elem->nb == nb)
+    {
+        if (elem != *begin)
+            elem->chr = -1;
+        return (elem);
+    }
     return (NULL);
+}
 
+// t_dlst  *dlst_chr_smallest(t_dlst **begin)
+// {
+//     t_dlst  *elem;
+//     t_dlst  ret;
+//     int     chr;
 
+//     if (!begin || !*begin)
+//         return (NULL);
+//     ret = *begin;
+//     elem = *begin->next;
+//     while (elem != *begin)
+//     {
+//         if (elem->nb < ret->nb)
+//             ret = elem;
+//         elem = elem->next;
+//     }
+//     return (ret);
+// }
+
+t_dlst  **tab_to_dlst(int *tab, int size)
+{
+    int     i;
+    t_dlst  **begin;
+
+    begin = (t_dlst**)malloc(sizeof(t_dlst*));
+    if (!begin)
+        return (NULL);
+    *begin = NULL;
+    i = 0;
+    while (i < size)
+    {
+        if (!dlst_push_bottom(begin, dlst_create_elem(&tab[i])))
+            return (NULL);
+        i++;
+    }
+    return (begin);
+}
+
+int     *dlst_to_tab(t_dlst **begin, t_dlst *elem, int *size, int lvl)
+{
+    int *tab;
+
+    if (!begin || !*begin)
+        return (NULL);
+    if (elem->next != *begin)
+        tab = dlst_to_tab(begin, elem->next, size, lvl + 1);
+    else
+    {
+        tab = (int*)malloc(sizeof(int) * (lvl + 1));
+        *size = lvl + 1;
+    }
+    tab[lvl] = elem->nb;
+    return (tab);
 }

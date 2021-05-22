@@ -18,9 +18,9 @@ void    quick_sort(int *tab, int begin, int end)
         if (i < j)
             ft_swap(&tab[i], &tab[j]);
     }
-    ft_swap(&tab[pivot], &tab[j]);
     if (begin < end)
     {
+        ft_swap(&tab[pivot], &tab[j]);
         quick_sort(tab, begin, j - 1);
         quick_sort(tab, j + 1, end);
     }
@@ -64,25 +64,6 @@ void    stack_print(t_dlst **stack_a, t_dlst **stack_b, char *line)
     }
     printf("_\t_\n");
     printf("a\tb\n\n");
-}
-
-t_dlst  **dlst_create_lst(int *tab, int size)
-{
-    int     i;
-    t_dlst  **begin;
-
-    begin = (t_dlst**)malloc(sizeof(t_dlst*));
-    if (!begin)
-        return (NULL);
-    *begin = NULL;
-    i = 0;
-    while (i < size)
-    {
-        if (!dlst_push_bottom(begin, dlst_create_elem(&tab[i])))
-            return (NULL);
-        i++;
-    }
-    return (begin);
 }
 
 int			check_arg(const char *str)
@@ -158,33 +139,60 @@ t_dlst		**create_stack(const int ac, const char **av)
 int     exec_instruct(const char *str, t_dlst **stack_a, t_dlst **stack_b)
 {
     if (!ft_strcmp(str, "sa"))
+    {
+        write(1, "sa\n", 3);
         swap_stack(stack_a);
+    }
     else if (!ft_strcmp(str, "sb"))
+    {
+        write(1, "sb\n", 3);
         swap_stack(stack_b);
+    }
     else if (!ft_strcmp(str, "ss"))
     {
+        write(1, "ss\n", 3);
         swap_stack(stack_a);
         swap_stack(stack_b);
     }
     else if (!ft_strcmp(str, "pa"))
+    {
+        write(1, "pa\n", 3);
         push_stack(stack_b, stack_a);
+    }
     else if (!ft_strcmp(str, "pb"))
+    {
+        write(1, "pb\n", 3);
         push_stack(stack_a, stack_b);
+    }
     else if (!ft_strcmp(str, "ra"))
+    {
+        write(1, "ra\n", 3);
         rotate(stack_a);
+    }
     else if (!ft_strcmp(str, "rb"))
+    {
+        write(1, "rb\n", 3);
         rotate(stack_b);
+    }
     else if (!ft_strcmp(str, "rr"))
     {
+        write(1, "rr\n", 3);
         rotate(stack_a);
         rotate(stack_b);
     }
     else if (!ft_strcmp(str, "rra"))
+    {
+        write(1, "rra\n", 4);
         reverse_rotate(stack_a);
+    }
     else if (!ft_strcmp(str, "rrb"))
+    {
+        write(1, "rrb\n", 4);
         reverse_rotate(stack_b);
+    }
     else if (!ft_strcmp(str, "rrr"))
     {
+        write(1, "rra\n", 4);
         reverse_rotate(stack_a);
         reverse_rotate(stack_b);
     }
