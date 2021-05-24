@@ -146,24 +146,6 @@ t_dlst  *dlst_chr(t_dlst **begin, int nb)
     return (NULL);
 }
 
-// t_dlst  *dlst_chr_smallest(t_dlst **begin)
-// {
-//     t_dlst  *elem;
-//     t_dlst  ret;
-//     int     chr;
-
-//     if (!begin || !*begin)
-//         return (NULL);
-//     ret = *begin;
-//     elem = *begin->next;
-//     while (elem != *begin)
-//     {
-//         if (elem->nb < ret->nb)
-//             ret = elem;
-//         elem = elem->next;
-//     }
-//     return (ret);
-// }
 
 t_dlst  **tab_to_dlst(int *tab, int size)
 {

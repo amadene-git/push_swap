@@ -47,7 +47,7 @@ RM			=	rm -rf
 
 #############################################
 
-all		:	${NAME}
+all		:	${NAME} ${CHECKER_N}
 ${NAME}	:	${MAIN_O} ${OBJS} 
 				${CC} -o ${NAME} $(MAIN_O) ${OBJS} 
 
