@@ -65,3 +65,20 @@ int		chr_first(t_dlst **begin)
 	}
 	return (nb);
 }
+
+int		chr_last(t_dlst **begin)
+{
+	t_dlst	*elem;
+	int		nb;
+
+	nb = (*begin)->nb;
+	elem = (*begin)->next;
+	while (elem != *begin)
+	{
+		if (nb < elem->nb)
+			nb = elem->nb;
+		elem = elem->next;
+	}
+	return (nb);
+}
+

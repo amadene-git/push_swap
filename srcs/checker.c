@@ -53,13 +53,8 @@ int main(const int ac, const char **av)
 
     stack_a = NULL;
     stack_b = NULL;
-    (void)av;
-	char **tab = (char**)malloc(sizeof(char*) * 101);
-	for (int i = 0; i < 100; i++)
-		tab[i] = ft_itoa(100 - i);
-	tab[100] = NULL;
-    if (ac > 0 && !strcmp(av[1], "-v"))
-        ret = verbose_checker(stack_a, stack_b, 100, (const char **)tab);
+    if (ac > 2 && !strcmp(av[1], "-v"))
+        ret = verbose_checker(stack_a, stack_b, ac, av);
     else
         ret = checker(stack_a, stack_b, ac, av);
     if (ret == 1)

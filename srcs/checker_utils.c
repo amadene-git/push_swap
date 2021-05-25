@@ -197,7 +197,9 @@ int     exec_instruct(const char *str, t_dlst **stack_a, t_dlst **stack_b)
         reverse_rotate(stack_b);
     }
     else
+    {
         return (0);
+    }
     return (1);
 }
 

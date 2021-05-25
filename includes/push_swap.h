@@ -76,7 +76,10 @@ int         checker(t_dlst **stack_a, t_dlst **stack_b, const int ac, const char
 int		chr_prev(t_dlst **begin, int nb);
 int		chr_next(t_dlst **begin, int nb);
 int		chr_first(t_dlst **begin);
+int		chr_last(t_dlst **begin);
 
+
+t_dlst	*dlst_chr_btwn(t_dlst **begin, int first, int last);
 
 
 

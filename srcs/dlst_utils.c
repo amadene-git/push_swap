@@ -122,6 +122,8 @@ t_dlst  *dlst_chr(t_dlst **begin, int nb)
     t_dlst  *elem;
     int     chr;
 
+    if (!begin || !*begin)
+        return (NULL);
     elem = *begin;
     chr = 0;
     while (elem->next != *begin)
