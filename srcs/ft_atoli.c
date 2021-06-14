@@ -6,17 +6,19 @@
 /*   By: admadene <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 17:31:45 by admadene          #+#    #+#             */
-/*   Updated: 2021/05/11 17:31:47 by admadene         ###   ########.fr       */
+/*   Updated: 2021/06/09 14:31:53 by admadene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "push_swap.h"
 
 long int	ft_atoli(const char *str)
 {
-	int	neg = 1;
-	long long int nb = 0;
+	int				neg;
+	long long int	nb;
 
+	neg = 1;
+	nb = 0;
 	while (*str == ' ')
 		str++;
 	if (*str == '-')

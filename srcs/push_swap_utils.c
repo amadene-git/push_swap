@@ -6,13 +6,13 @@
 /*   By: admadene <admadene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 19:49:29 by admadene          #+#    #+#             */
-/*   Updated: 2021/05/22 19:49:46 by admadene         ###   ########.fr       */
+/*   Updated: 2021/06/09 15:21:09 by admadene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		chr_next(t_dlst **begin, int nb)
+int	chr_next(t_dlst **begin, int nb)
 {
 	int	*tab;
 	int	size;
@@ -23,15 +23,15 @@ int		chr_next(t_dlst **begin, int nb)
 	i = 0;
 	while (i < size && tab[i] <= nb)
 		i++;
-    if (i < size)
-	    i = tab[i];
-    else
-        i = tab[0];
-    free(tab);
+	if (i < size)
+		i = tab[i];
+	else
+		i = tab[0];
+	free(tab);
 	return (i);
 }
 
-int		chr_prev(t_dlst **begin, int nb)
+int	chr_prev(t_dlst **begin, int nb)
 {
 	int	*tab;
 	int	size;
@@ -42,15 +42,15 @@ int		chr_prev(t_dlst **begin, int nb)
 	i = 0;
 	while (i < size && tab[i] < nb)
 		i++;
-    if (i)
-	    i = tab[i - 1];
-    else
-        i = tab[size - 1];
-    free(tab);
+	if (i)
+		i = tab[i - 1];
+	else
+		i = tab[size - 1];
+	free(tab);
 	return (i);
 }
 
-int		chr_first(t_dlst **begin)
+int	chr_first(t_dlst **begin)
 {
 	t_dlst	*elem;
 	int		nb;
@@ -66,7 +66,7 @@ int		chr_first(t_dlst **begin)
 	return (nb);
 }
 
-int		chr_last(t_dlst **begin)
+int	chr_last(t_dlst **begin)
 {
 	t_dlst	*elem;
 	int		nb;
@@ -81,4 +81,3 @@ int		chr_last(t_dlst **begin)
 	}
 	return (nb);
 }
-

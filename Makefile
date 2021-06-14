@@ -13,6 +13,7 @@ SRCS		=	srcs/ft_swap.c\
 				srcs/ft_strcmp.c\
 				srcs/ft_atoli.c\
 				srcs/dlst_utils.c\
+				srcs/dlst_utils_2.c\
 				srcs/push_swap.c\
 				srcs/get_next_line.c\
 				srcs/checker_utils.c\
@@ -34,7 +35,7 @@ TEST_O		=	${TEST_C:.c=.o}
 
 HEADER		=	-I includes
 
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g
 
 CC			=	clang
 

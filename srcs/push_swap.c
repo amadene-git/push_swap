@@ -6,24 +6,24 @@
 /*   By: admadene <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 09:32:45 by admadene          #+#    #+#             */
-/*   Updated: 2021/04/23 09:42:31 by admadene         ###   ########.fr       */
+/*   Updated: 2021/06/09 15:19:37 by admadene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "push_swap.h"
 
-int     swap_stack(t_dlst **stack)
+int	swap_stack(t_dlst **stack)
 {
 	if (!stack || !*stack)
 		return (0);
-	ft_swap((int*)(*stack)->data, (int*)(*stack)->next->data);
+	ft_swap((int *)(*stack)->data, (int *)(*stack)->next->data);
 	ft_swap(&(*stack)->nb, &(*stack)->next->nb);
 	return (1);
 }
 
-int     push_stack(t_dlst **src, t_dlst **dest)
+int	push_stack(t_dlst **src, t_dlst **dest)
 {
-	t_dlst  *elem;
+	t_dlst	*elem;
 
 	if (!src || !dest || !*src)
 		return (0);
@@ -38,7 +38,7 @@ int     push_stack(t_dlst **src, t_dlst **dest)
 	return (1);
 }
 
-int     rotate(t_dlst **stack)
+int	rotate(t_dlst **stack)
 {
 	if (!stack || !*stack)
 		return (0);
@@ -46,7 +46,7 @@ int     rotate(t_dlst **stack)
 	return (1);
 }
 
-int     reverse_rotate(t_dlst **stack)
+int	reverse_rotate(t_dlst **stack)
 {
 	if (!stack || !*stack)
 		return (0);

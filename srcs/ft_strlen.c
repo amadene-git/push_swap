@@ -6,18 +6,18 @@
 /*   By: admadene <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 10:43:55 by admadene          #+#    #+#             */
-/*   Updated: 2021/04/23 10:49:32 by admadene         ###   ########.fr       */
+/*   Updated: 2021/06/09 14:33:20 by admadene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "push_swap.h"
 
-size_t  ft_strlen(char const *str)
+size_t	ft_strlen(char const *str)
 {
-        size_t i;
+	size_t	i;
 
-        i = 0;
-        while (str[i])
-                i++;
-        return (i);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
