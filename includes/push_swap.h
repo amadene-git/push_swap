@@ -80,7 +80,25 @@ int		chr_last(t_dlst **begin);
 
 
 t_dlst	*dlst_chr_btwn(t_dlst **begin, int first, int last);
-
+void	psh_utils(int **tab, t_dlst **stack_a, int *size, int *a);
+void	psh_utils_2(t_dlst **stack_a, t_dlst **stack_b, t_dlst *elem);
+int	psh_utils_3(t_dlst **stack_a, t_dlst **stack_b, t_dlst **elem, int *tab);
+int	ps_hundred(t_dlst **stack_a, t_dlst **stack_b, int chunk);
+int	ps_three(t_dlst **stack_a, t_dlst **stack_b);
+void	ps_five_utils(t_dlst **stack_a, t_dlst *elem);
+int	ps_five(t_dlst **stack_a, t_dlst **stack_b);
+int	dcb_utils(t_dlst **elem1, t_dlst **elem2, int *chr1, int *chr2);
+t_dlst	*dcb_init(t_dlst **b, t_dlst **elem2, int *chr1, int *chr2);
+t_dlst	*dlst_chr_btwn(t_dlst **b, int first, int last);
+void	ft_putnbr(int nbr);
+int	prepare_stack_b(t_dlst **stack_a, t_dlst **stack_b);
+void	rotate_stack_a(t_dlst **stack_a, t_dlst *elem);
+void	rotate_stack_b(t_dlst **stack_b, t_dlst *elem);
+int	*csu(const char *str);
+t_dlst	**create_stack(const int ac, const char **av);
+int	ex_instr(char *str, t_dlst **stack_a, t_dlst **stack_b);
+int	exec_instruct(char *str, t_dlst **stack_a, t_dlst **stack_b, char **ret);
+int	is_sorted(t_dlst **stack_a, t_dlst **stack_b);
 
 
 #endif
