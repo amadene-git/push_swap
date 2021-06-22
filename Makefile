@@ -1,6 +1,6 @@
 NAME		=	push_swap
 
-#CHECKER_N	=	checker
+CHECKER_N	=	checker
 
 ##############################################
 
@@ -20,16 +20,18 @@ SRCS		=	srcs/ft_swap.c\
 				srcs/main_utils.c\
 				srcs/main_utils2.c\
 				srcs/main_utils3.c\
+				srcs/Get_Next_Line/get_next_line.c\
+				srcs/Get_Next_Line/get_next_line_utils.c\
 
 MAIN_C		=	srcs/main.c
-#CHECKER_C	=	srcs/checker.c
+CHECKER_C	=	srcs/checker.c
 
 #############################################
 
 OBJS		=	${SRCS:.c=.o}
 
 MAIN_O		=	${MAIN_C:.c=.o}
-#CHECKER_O	=	${CHECKER_C:.c=.o}
+CHECKER_O	=	${CHECKER_C:.c=.o}
 
 #############################################
 
@@ -52,9 +54,9 @@ all		:	${NAME}
 ${NAME}	:	${MAIN_O} ${OBJS} 
 				${CC} -o ${NAME} $(MAIN_O) ${OBJS} 
 
-#check	:	${CHECKER_N}
-#${CHECKER_N} :	${CHECKER_O} ${OBJS}
-#				${CC} -o ${CHECKER_N} $(CHECKER_O) ${OBJS}
+check	:	${CHECKER_N}
+${CHECKER_N} :	${CHECKER_O} ${OBJS}
+				${CC} -o ${CHECKER_N} $(CHECKER_O) ${OBJS}
 
 ##############################################
 
